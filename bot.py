@@ -15,9 +15,9 @@ from telegram.constants import ChatAction
 from telegram.ext import Application, CallbackQueryHandler, CommandHandler, ContextTypes
 from telegram.request import HTTPXRequest
 
-from quantai.chart import create_chart
-from quantai.data import MarketDataConfig, fetch_ohlcv
-from quantai.signals import Signal, SignalGenerator
+from chart import create_chart
+from data import MarketDataConfig, fetch_ohlcv
+from signals import Signal, SignalGenerator
 
 load_dotenv()
 logging.basicConfig(format="%(asctime)s %(levelname)s %(name)s: %(message)s", level=logging.INFO)
