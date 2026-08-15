@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 
 import pandas as pd
 
-from .analysis import calculate_indicators
+from analysis import calculate_indicators
 
 
 @dataclass(frozen=True)
