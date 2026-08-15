@@ -1,0 +1,7 @@
+nohup: ignoring input
+2026-08-15 21:58:28,358 INFO quantai: Starting QuantAI polling bot
+2026-08-15 21:58:30,973 INFO httpx: HTTP Request: POST https://api.telegram.org/bot8902998081:AAHdsamdOlx92g5WGIYz08X2ZyhkrmcCV98/getMe "HTTP/1.1 200 OK"
+2026-08-15 21:58:31,462 INFO httpx: HTTP Request: POST https://api.telegram.org/bot8902998081:AAHdsamdOlx92g5WGIYz08X2ZyhkrmcCV98/deleteWebhook "HTTP/1.1 200 OK"
+2026-08-15 21:58:31,463 INFO telegram.ext.Application: Application started
+2026-08-15 21:58:43,568 INFO httpx: HTTP Request: POST https://api.telegram.org/bot8902998081:AAHdsamdOlx92g5WGIYz08X2ZyhkrmcCV98/getUpdates "HTTP/1.1 200 OK"
+2026-08-15 21:58:54,280 INFO httpx: HTTP Request: POST https://api.telegram.org/bot8902998081:AAHdsamdOlx92g5WGIYz08X2ZyhkrmcCV98/getUpdates "HTTP/1.1 200 OK"

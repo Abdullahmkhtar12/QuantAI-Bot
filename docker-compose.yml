@@ -1,0 +1,10 @@
+services:
+  quantai:
+    build: .
+    container_name: quantai_bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./charts:/app/charts
+      - ./data:/app/data
