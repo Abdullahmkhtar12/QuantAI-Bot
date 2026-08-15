@@ -6,7 +6,7 @@ from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 
-from .analysis import normalize_ohlcv
+from analysis import normalize_ohlcv
 
 try:
     import yfinance as yf
