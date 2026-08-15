@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 from analysis import calculate_indicators
-from .signals import Signal
+from signals import Signal
 
 try:
     import mplfinance as mpf
