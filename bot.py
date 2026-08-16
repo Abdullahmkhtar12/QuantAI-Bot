@@ -201,5 +201,5 @@ def run_health_check():
 if __name__ == "__main__":
     LOGGER.info("Starting QuantAI polling bot")
     threading.Thread(target=run_health_check, daemon=True).start()
-    build_application().run_polling(allowed_updates=...)
+    build_application().run_polling(allowed_updates=["message", "callback_query"])
     
