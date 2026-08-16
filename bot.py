@@ -185,9 +185,6 @@ def build_application() -> Application:
     return app
 
 
-if __name__ == "__main__":
-    LOGGER.info("Starting QuantAI polling bot")
-    build_application().run_polling(allowed_updates=Update.ALL_TYPES, drop_pending_updates=True)
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
@@ -201,5 +198,8 @@ def run_health_check():
     server = HTTPServer(('0.0.0.0', 10000), HealthCheckHandler)
     server.serve_forever()
 
-threading.Thread(target=run_health_check, daemon=True).start()
-        
+if __name__ == "__main__":
+    LOGGER.info("Starting QuantAI polling bot")
+    threading.Thread(target=run_health_check, daemon=True).start()
+    build_application().run_polling(allowed_updates=...)
+    
