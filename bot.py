@@ -171,8 +171,37 @@ async def handle_text_message(update: Update, context: ContextTypes.DEFAULT_TYPE
     symbol = update.message.text.strip().upper()
     await update.message.reply_text(f"🔍 جاري تحليل الرمز: {symbol} ...")
 
-async def handle_photo_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text("📸 تم استلام صورة الرسم البياني! جاري معالجة الشموع اليابانية...")
+async def handle_photo_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not update.message or not update.message.photo:
+        return
+
+    status_msg = await update.message.reply_text("📸 جاري قراءة الرسم البياني وتحليله بواسطة الذكاء الاصطناعي...")
+
+    try:
+        photo_file = await update.message.photo[-1].get_file()
+        image_bytes = await photo_file.download_as_bytearray()
+
+        model = genai.GenerativeModel('gemini-1.5-flash')
+        
+        prompt = (
+            "أنت خبير تحليل فني للتداول. قم بتحليل صورة الرسم البياني المرفقة بدقة واستخرج ما يلي بلغة عربية واضحة وبسيطة:\n"
+            "1. 📈 الاتجاه العام وحالة السوق\n"
+            "2. 🎯 نقطة الدخول المقترحة (Entry Point)\n"
+            "3. 🛑 نقطة وقف الخسارة (Stop Loss)\n"
+            "4. 🏁 أهداف أخذ الأرباح (Take Profit)\n"
+            "5. 🧱 مستويات الدعم والمقاومة الرئيسية\n"
+            "6. 📊 مؤشرات التشبع الشرائي أو البيعي (إذا كانت ظاهرة)\n"
+            "قدم التحليل في نقاط مرتبة ومنسقة."
+        )
+
+        image_parts = [{"mime_type": "image/jpeg", "data": bytes(image_bytes)}]
+        response = model.generate_content([prompt, image_parts[0]])
+
+        await status_msg.edit_text(response.text)
+
+    except Exception as e:
+        LOGGER.exception("Gemini Photo Analysis Error", exc_info=e)
+        await status_msg.edit_text("❌ حدث خطأ أثناء تحليل الصورة. تأكد من إعداد GEMINI_API_KEY بشكل صحيح.")
     
 def build_application() -> Application:
     if not TOKEN:
