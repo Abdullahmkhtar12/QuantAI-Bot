@@ -1,4 +1,4 @@
-    """QuantAI Telegram bot entrypoint.
+"""QuantAI Telegram bot entrypoint.
 
 This bot provides educational market analysis only.
 """
