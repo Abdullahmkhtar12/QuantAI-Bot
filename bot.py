@@ -166,7 +166,13 @@ async def home(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
     LOGGER.exception("Unhandled Telegram error", exc_info=context.error)
 
+async def handle_text_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    symbol = update.message.text.strip().upper()
+    await update.message.reply_text(f"🔍 جاري تحليل الرمز: {symbol} ...")
 
+async def handle_photo_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    await update.message.reply_text("📸 تم استلام صورة الرسم البياني! جاري معالجة الشموع اليابانية...")
+    
 def build_application() -> Application:
     if not TOKEN:
         raise RuntimeError("TELEGRAM_BOT_TOKEN is missing. Add it to .env")
@@ -181,6 +187,8 @@ def build_application() -> Application:
     app.add_handler(CallbackQueryHandler(set_timeframe, pattern="^tf_(15m|1h|1d)$"))
     app.add_handler(CallbackQueryHandler(home, pattern="^home$"))
     app.add_handler(CallbackQueryHandler(noop, pattern="^noop$"))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text_message))
+    app.add_handler(MessageHandler(filters.PHOTO, handle_photo_message))
     app.add_error_handler(error_handler)
     return app
 
